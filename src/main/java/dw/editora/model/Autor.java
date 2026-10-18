@@ -1,4 +1,3 @@
-// Camada Model do padrão MVC.
 package dw.editora.model;
 
 import java.util.ArrayList;
@@ -25,18 +24,13 @@ public class Autor {
     @Column(nullable = false)
     private String nome;
 
-    // unique = true garante que o banco rejeita dois autores com o mesmo email
     @Column(nullable = false, unique = true)
     private String email;
 
-    // Texto longo/opcional: columnDefinition TEXT evita o limite padrão do
-    // JPA (VARCHAR(255)); nullable=true (padrão) o deixa opcional
     @Column(columnDefinition = "TEXT")
     private String biografia;
 
-    // Lado "um" do relacionamento 1:N. mappedBy = "autor" indica que quem tem
-    // a coluna de chave estrangeira (autor_id) é a entidade Artigo.
-    // @JsonIgnoreProperties("autor") evita o loop infinito no JSON.
+    // Relacionamento 1:N; @JsonIgnoreProperties evita loop no JSON
     @OneToMany(mappedBy = "autor")
     @JsonIgnoreProperties("autor")
     private List<Artigo> artigos = new ArrayList<>();

@@ -1,4 +1,3 @@
-// Camada Controller do padrão MVC.
 package dw.editora.control;
 
 import java.util.List;
@@ -30,28 +29,25 @@ public class AutorController {
         this.service = service;
     }
 
-    // POST /api/autores : cadastrar autor
     @PostMapping
     public ResponseEntity<Autor> createAutor(@RequestBody Autor autor) {
         if (autor.getNome() == null || autor.getNome().isBlank()
                 || autor.getEmail() == null || autor.getEmail().isBlank())
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400: nome e email obrigatórios
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         try {
-            return new ResponseEntity<>(service.salvar(autor), HttpStatus.CREATED); // 201
+            return new ResponseEntity<>(service.salvar(autor), HttpStatus.CREATED);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409: email repetido
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // GET /api/autores : listar todos os autores
     @GetMapping
     public ResponseEntity<List<Autor>> getAllAutores() {
         return new ResponseEntity<>(service.listarTodos(), HttpStatus.OK);
     }
 
-    // GET /api/autores/{id} : buscar autor por id
     @GetMapping("/{id}")
     public ResponseEntity<Autor> getAutor(@PathVariable("id") long id) {
         Optional<Autor> data = service.buscarPorId(id);
@@ -60,7 +56,6 @@ public class AutorController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // GET /api/autores/{id}/artigos : artigos publicados por um autor
     @GetMapping("/{id}/artigos")
     public ResponseEntity<List<Artigo>> getArtigosDoAutor(@PathVariable("id") long id) {
         if (service.buscarPorId(id).isEmpty())
@@ -68,15 +63,14 @@ public class AutorController {
         return new ResponseEntity<>(service.listarArtigosDoAutor(id), HttpStatus.OK);
     }
 
-    // DELETE /api/autores/{id} : remover autor
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteAutor(@PathVariable("id") long id) {
         try {
             if (!service.deletar(id))
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalStateException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT); // 409: autor tem artigos
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

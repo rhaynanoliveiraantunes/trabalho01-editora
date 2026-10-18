@@ -21,6 +21,5 @@ public interface ArtigoRepository extends JpaRepository<Artigo, Long> {
     // O Spring interpreta este nome e gera um SQL com a cláusula "LIKE %titulo%" ignorando maiúsculas e minúsculas
     List<Artigo> findByTituloContainingIgnoreCase(String titulo);
 
-    // Busca os artigos de um autor: SELECT * FROM artigo WHERE autor_id = ?
     List<Artigo> findByAutorId(long autorId);
 }

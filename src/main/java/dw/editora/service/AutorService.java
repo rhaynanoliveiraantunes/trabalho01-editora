@@ -1,4 +1,3 @@
-// Camada Service: concentra as regras de negócio dos autores.
 package dw.editora.service;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class AutorService {
         this.artigoRepository = artigoRepository;
     }
 
-    // Regra: não podem existir dois autores com o mesmo email
+    // Impede cadastro de autores com o mesmo email
     public Autor salvar(Autor autor) {
         if (autorRepository.existsByEmail(autor.getEmail()))
             throw new IllegalStateException("Já existe um autor com este email");
@@ -41,8 +40,7 @@ public class AutorService {
         return artigoRepository.findByAutorId(idAutor);
     }
 
-    // Regra: não deixa apagar autor que ainda possui artigos.
-    // Retorna false se o autor não existe.
+    // Impede a exclusão de autor com artigos vinculados
     public boolean deletar(long id) {
         if (!autorRepository.existsById(id))
             return false;

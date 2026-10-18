@@ -93,6 +93,7 @@ public class ArtigoController {
     @PostMapping("/")
     public ResponseEntity<Artigo> createArtigo(@RequestBody ArtigoRequest ar) {
         try {
+            // autorId é obrigatório na criação do artigo
             if (ar.getAutorId() == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }

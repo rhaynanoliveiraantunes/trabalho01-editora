@@ -34,8 +34,6 @@ public class Artigo {
     @Column(columnDefinition = "BOOLEAN DEFAULT TRUE") 
     private boolean publicado;
 
-    // Lado "muitos" do 1:N: este lado tem a chave estrangeira (coluna autor_id).
-    // @JsonIgnoreProperties("artigos") evita o loop infinito Artigo -> Autor -> Artigos...
     @ManyToOne
     @JoinColumn(name = "autor_id")
     @JsonIgnoreProperties("artigos")
@@ -45,7 +43,7 @@ public class Artigo {
     public Artigo() {
 	}
 
-    // Construtor utilitário para facilitar a criação de objetos no Controller
+    
 	public Artigo(String titulo, String resumo, boolean publicado) {
 		this.titulo = titulo;
 		this.resumo = resumo;
@@ -57,7 +55,7 @@ public class Artigo {
 		this.autor = autor;
 	}
 
-    // Getters e Setters (Encapsulamento - princípio básico de Orientação a Objetos)
+    // Getters e Setters
     public long getId() { return this.id; }
     public void setId(long id) { this.id = id; }
     public String getTitulo() { return this.titulo; }
