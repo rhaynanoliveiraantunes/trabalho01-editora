@@ -1,3 +1,4 @@
+
 package dw.editora.control;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class AutorController {
         if (autor.getNome() == null || autor.getNome().isBlank()
                 || autor.getEmail() == null || autor.getEmail().isBlank())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         try {
             return new ResponseEntity<>(service.salvar(autor), HttpStatus.CREATED);
         } catch (IllegalStateException e) {
@@ -51,8 +53,10 @@ public class AutorController {
     @GetMapping("/{id}")
     public ResponseEntity<Autor> getAutor(@PathVariable("id") long id) {
         Optional<Autor> data = service.buscarPorId(id);
+
         if (data.isPresent())
             return new ResponseEntity<>(data.get(), HttpStatus.OK);
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -60,6 +64,7 @@ public class AutorController {
     public ResponseEntity<List<Artigo>> getArtigosDoAutor(@PathVariable("id") long id) {
         if (service.buscarPorId(id).isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         return new ResponseEntity<>(service.listarArtigosDoAutor(id), HttpStatus.OK);
     }
 
@@ -68,6 +73,7 @@ public class AutorController {
         try {
             if (!service.deletar(id))
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
