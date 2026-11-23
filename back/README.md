@@ -1,34 +1,92 @@
-Integrantes: Rhaynan Oliveira Antunes
-             Luiz Gabriel Merotto De Lima
-             Gabriel Eduardo Beck Paes
+
+# Back-end — Editora
+
+**Integrantes:**
+- Rhaynan Oliveira Antunes
+- Luiz Gabriel Merotto De Lima
+- Gabriel Eduardo Beck Paes
 
 ## Como executar
 
-Requisitos: Java 17+, PostgreSQL com o banco `editora` criado e a senha ajustada em `src/main/resources/application.properties`.
+Requisitos: Java 17+ e PostgreSQL com o banco `editora` criado.
+
+As propriedades de conexão têm valores locais padrão e podem ser substituídas pelas variáveis:
+- `SPRING_DATASOURCE_URL`
+- `SPRING_DATASOURCE_USERNAME`
+- `SPRING_DATASOURCE_PASSWORD`
+
+A porta pode ser definida por `PORT` (padrão `8000`).
+
+### Windows
 
 ```bash
-./mvnw spring-boot:run   # sobe em http://localhost:8000/editora
+.\mvnw.cmd spring-boot:run
 ```
+
+### Linux / macOS
+
+```bash
+./mvnw spring-boot:run
+```
+
+A API ficará disponível em `http://localhost:8000/editora`.
+
+A variável `CORS_ALLOWED_ORIGINS` define as origens autorizadas (padrão `*`, apropriado para desenvolvimento local).
+
+Em produção, configure o domínio do front-end, sem barra no final.
+
+Há um `Dockerfile` nesta pasta para publicar o back-end em um serviço com suporte a Docker.
 
 ## Descrição da API
 
-Base URL: `http://localhost:8000/editora` (CORS liberado para qualquer origem)
+Base URL: `http://localhost:8000/editora`.
+
+Por padrão, o CORS aceita qualquer origem em desenvolvimento; em produção, restrinja com `CORS_ALLOWED_ORIGINS`.
 
 ### Modelos
+
 **Autor**
+
 ```json
-{ "id": 1, "nome": "Maria", "email": "maria@exemplo.com", "biografia": "texto opcional", "artigos": [] }
+{
+  "id": 1,
+  "nome": "Maria",
+  "email": "maria@exemplo.com",
+  "biografia": "texto opcional",
+  "artigos": []
+}
 ```
+
 **Artigo** (resposta)
+
 ```json
-{ "id": 1, "titulo": "Título (máx. 80)", "resumo": "texto", "publicado": true, "autor": { "id": 1, "nome": "Maria", "email": "...", "biografia": "..." } }
+{
+  "id": 1,
+  "titulo": "Título (máx. 80)",
+  "resumo": "texto",
+  "publicado": true,
+  "autor": {
+    "id": 1,
+    "nome": "Maria",
+    "email": "...",
+    "biografia": "..."
+  }
+}
 ```
+
 **ArtigoRequest** (corpo de POST/PUT)
+
 ```json
-{ "titulo": "string", "resumo": "string", "publicado": true, "autorId": 1 }
+{
+  "titulo": "string",
+  "resumo": "string",
+  "publicado": true,
+  "autorId": 1
+}
 ```
 
 ### Artigos
+
 | Método | Rota | Descrição | Respostas |
 |---|---|---|---|
 | GET | `/` | Lista artigos; aceita `?titulo=` (busca parcial, sem diferenciar maiúsculas) | 200, 204 (vazio) |
@@ -40,6 +98,7 @@ Base URL: `http://localhost:8000/editora` (CORS liberado para qualquer origem)
 | GET | `/publicado` | Lista artigos publicados | 200, 204 |
 
 ### Autores
+
 | Método | Rota | Descrição | Respostas |
 |---|---|---|---|
 | GET | `/api/autores` | Lista autores | 200 |
