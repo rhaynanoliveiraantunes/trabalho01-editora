@@ -29,7 +29,7 @@ npm run dev              # http://localhost:5173
 
 ## Descrição da API
 
-Base URL: `http://localhost:8000/editora` (CORS liberado para qualquer origem)
+Base URL: `http://localhost:8000/editora` (CORS aceita qualquer origem por padrão no desenvolvimento)
 
 Em produção, defina `VITE_API_URL` como a URL pública do back-end com `/editora` no final. Ao publicar no Vercel, use `front` como Root Directory, `npm run build` como comando de build e `dist` como diretório de saída; configure a variável em **Settings > Environment Variables** e faça novo deploy. O arquivo `vercel.json` habilita o acesso direto às rotas internas do React.
 

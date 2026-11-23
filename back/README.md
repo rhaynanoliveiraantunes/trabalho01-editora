@@ -14,7 +14,7 @@ Requisitos: Java 17+ e PostgreSQL com o banco `editora` criado. As propriedades 
 
 ## Descrição da API
 
-Base URL: `http://localhost:8000/editora` (CORS liberado para qualquer origem)
+Base URL: `http://localhost:8000/editora`. Por padrão, o CORS aceita qualquer origem em desenvolvimento; em produção, restrinja com `CORS_ALLOWED_ORIGINS`.
 
 ### Modelos
 **Autor**
