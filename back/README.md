@@ -10,6 +10,8 @@ Requisitos: Java 17+, PostgreSQL com o banco `editora` criado e a senha ajustada
 ./mvnw spring-boot:run   # sobe em http://localhost:8000/editora
 ```
 
+API em produção: https://editora-api.onrender.com/editora
+
 ## Descrição da API
 
 Base URL: `http://localhost:8000/editora` (CORS liberado para qualquer origem)

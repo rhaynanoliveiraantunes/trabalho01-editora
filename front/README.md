@@ -1,5 +1,7 @@
 # Editora — Front-end React
 
+Aplicação online: https://trabalho01-editora.vercel.app
+
 Aplicação ReactJS (Vite + React Router) para cadastro e listagem de **autores** e **artigos**, consumindo a API REST `trabalho01-editora` (Spring Boot + PostgreSQL).
 
 **Integrantes:** Rhaynan Oliveira Antunes, Luiz Gabriel Merotto De Lima, Gabriel Eduardo Beck Paes
